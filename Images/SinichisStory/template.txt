@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Story</title>
+<script src="Utility.js"></script>
+<link rel="stylesheet" href="Story.css"></link>
+</head>
+<body onload="showFooter()">
+</body>
+</html>
