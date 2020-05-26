@@ -1,6 +1,6 @@
 {
 	name: "Sinichi",
-	spriteMap: "Images\Squarateka\Sinichi\spriteMap.png",
+	spriteMap: "Images/Squarateka/Sinichi/spriteMap.png",
 	animation: {
 		images: [],
 		type: "spriteSheet",
@@ -12,7 +12,7 @@
 				sad: [24,31]
 		}	// animations object			
 	}, //animation
-	fight: {
+	fightingStatistics: {
 		damage: 10000,
 		defence: 10000,
 		hp : 35000,
@@ -22,7 +22,7 @@
 		constitution: 20000,
 		tirednessModifier: 1.0 
 	},
-	game: {
+	gameStatistics: {
 		talentLimit: 1.15,
 		learningSpeed: 1.0,
 		belt: "White"
