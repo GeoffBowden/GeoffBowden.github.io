@@ -1,6 +1,8 @@
 {
 	name: "Mr Vanilla BadGuy",
-	spriteMap: "Images/Squarateka/VanillaBadGuy/spriteMap.png",
+	spriteMap: "Images/Squarateka/BadGuy/spriteMap.png",
+	leftHandImageLocation: "Images/Squarateka/Shared/BoxingGloves/left_boxing_glove.png",
+	rightHandImageLocation:"Images/Squarateka/Shared/BoxingGloves/right_boxing_glove.png",
 	animation: {
 		images: [],
 		type: "spriteSheet",
@@ -20,6 +22,16 @@
 		resting: 10000,
 		recovery: 10000,
 		constitution: 10000,
+		tirednessModifier: 1.0 
+	},
+	currentFightingStatistics: {
+		damage: 10000,
+		defence: 10000,
+		hp : 35000,
+		jumping: 10000, 
+		resting: 10000,
+		recovery: 10000,
+		constitution: 20000,
 		tirednessModifier: 1.0 
 	},
 	gameStatistics: {
