@@ -1,0 +1,40 @@
+
+
+2x	OnScreenCounter
+		this.playerScore = null;		
+		this.opponentScore = null;
+		this.stage.addChildAt( this.text, index?index:0 );
+		this.stage.addChildAt( this.background, index?index:0) ;
+		
+		
+2x	HealthIndicator
+		this.homeFighterHealthBar  = null;
+		this.awayFighterHealthBar = null;
+		stage.addChildAt(  this.foreground, index?index:0  ) ;
+		stage.addChildAt(  this.background, index?index:0  ) ;
+
+1x	Header
+		this.header = null;
+		this.stage.addChildAt( this.text, index?index:0  ) ;
+		this.stage.addChildAt(  this.background, index?index:0  ) ;
+		
+		
+1x	BackGroundDisplay
+		this.stage.addChildAt( this.scene, 0 );	
+		this.stage.addChildAt(  this.groundIndicator, 1  ) ;
+		this.stage.addChildAt(  this.skyIndicator, 1  ) ;
+
+2x Fighter Display
+	this.stage.addChild ( this.leftHand, this.rightHand, this.playerAnimation ) ;
+
+
+	
+		
+		let homeFighterImage =   systemSettings.resourcesUri + homePlayer.spriteMap;
+		let homeFighterLeftHandImageLocation = systemSettings.resourcesUri + homePlayer.leftHandImageLocation;
+		let homeFighterRightHandImageLocation = systemSettings.resourcesUri + homePlayer.rightHandImageLocation;
+
+		let awayFighterImage =   systemSettings.resourcesUri + awayPlayer.spriteMap;
+		let awayFighterLeftHandImageLocation = systemSettings.resourcesUri + awayPlayer.leftHandImageLocation;
+		let awayFighterRightHandImageLocation = systemSettings.resourcesUri + awayPlayer.rightHandImageLocation;
+	

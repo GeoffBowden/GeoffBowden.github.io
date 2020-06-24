@@ -1,0 +1,60 @@
+<!doctype HTML>
+<html>
+<head>
+<!--meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https:"-->
+<title>Squarati</title>
+<link rel="stylesheet" href="CSS\squarati.css" />
+<script src="Scripts\systemsettings.js"></script>
+<script src="Scripts\CreateJS\dist\createjs.js"></script>
+<script src="Scripts\rfdc\index.js"></script>
+<script src="Scripts\dynamicLoading.js"></script>
+<script src="Scripts\cookieCrew.js"></script>
+<script src="Scripts\frontPage.js"></script>
+<!--only useful for release1-->
+<script src="Scripts\Games\Fights\Common\gameLoader.js"></script>
+
+<!-- configuration -->
+<script src="Scripts\Games\Fights\ControlLogic\GameElements.js"></script>
+<script src="Scripts\Squaratika\SquaratikaAPI.js"></script>
+<script src="Scripts\Squaratika\SquaratikaConfig.js"></script>
+
+<!-- common display elements -->
+<script src="Scripts\Games\ScreenElements\alignmentOptions.js"></script>
+<script src="Scripts\Games\ScreenElements\onScreenCounter.js"></script>
+<script src="Scripts\Games\ScreenElements\headingComponent.js"></script>
+<script src="Scripts\Games\ScreenElements\healthIndicator.js"></script>
+<script src="Scripts\Games\Fights\Common\backgroundDisplay.js"></script>
+<script src="Scripts\Games\Fights\Common\fighterDisplay.js"></script>
+<script src="Scripts\Games\Fights\Common\oneOnOneGameDisplay.js"></script>
+
+<!-- control logic code -->
+<script src="Scripts\Games\Fights\ControlLogic\BattleMatrix.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\baseFightStates.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\RestingAndDefenceCalculators.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\FighterStates.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\FighterFallingStates.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\FighterRestingStates.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\FighterRecoveryStates.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\FighterDefendingStates.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\FighterAttackingStates.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\FighterStateMachine.js"></script>
+<script src="Scripts\Games\Fights\ControlLogic\OneOnOneFight.js"></script>
+
+</head>
+<body onselectstart="return false;" onload="frontPageLoad()">
+<div>
+</div>
+<div id="mainPage">
+	<header>
+	Header
+	</header>
+	<div>
+	<div id="cookieState" hidden="true">non existent</div>
+	<div id="contentDiv" class="loader">Content</div>
+	</div>
+	<footer>
+	Footer
+	</footer>
+</div>
+</body>
+</html>

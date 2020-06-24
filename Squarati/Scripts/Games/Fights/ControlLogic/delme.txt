@@ -1,0 +1,26 @@
+
+				in statemachine and state
+this.homeFighter : Squaratika{  aka this.fighterStats
+this.awayFighter : Squaratika{  aka this.fighterStats
+
+	.fightingStatistics.baseFightingStatistics.fightingStyle
+	.fightingStatistics.baseFightingStatistics.fightingStyle.powerSource
+	.fightingStatistics.baseFightingStatistics.fightingStyle.damageVariant
+	.fightingStatistics.currentFightingStatistics.damage
+	.fightingStatistics.currentFightingStatistics.hp
+	.fightingStatistics.currentFightingStatistics.tirednessModifier
+
+// for getting reletive stats
+	.fightingStatistics.currentFightingStatistics.jumping
+	.fightingStatistics.currentFightingStatistics.resting
+	.fightingStatistics.currentFightingStatistics.recovery
+// for defending and counterDefending
+needs to be set and worked out how
+	.fightingStatistics.currentFightingStatistics.defence
+
+// added reletive stats
+	.recoveryTarget
+	.restingTarget
+	.jumpHeight
+	
+}

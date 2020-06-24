@@ -1,0 +1,15 @@
+https://www.rulesofsport.com/sports/karate.html
+
+ippon			3 points
+waza-ari		2 points
+yuko			1 point
+
+Shobu hajime -- start
+yame -- stop (after a score)
+Tsuzukete hajime -- restart
+
+-------------------------------------------------------------------
+
+have a button that kicks off two timer, each second produce a score base on 0 create a timer, 0.1 handle timeout, apply algorithm. do all of this on a new page?
+with a blank canvas, maybe in a test branch
+
