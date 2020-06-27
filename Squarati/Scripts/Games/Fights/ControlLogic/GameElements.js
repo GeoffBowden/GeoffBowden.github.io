@@ -13,11 +13,15 @@ var gameElements = {
 	bonusRecoveryPerTick: 150,
 	basicRestingPerTick: 800,
 	bonusRestingPerTick: 150,
-	log: true,
-	logMoveToNextState: false
+	log: logMessage, // alternate way of calling - do not use
+	logMoveToNextState: false,
+	logUpdateFighterStatus: false,
+	logPerformStateEndingAction: false,
+	logCreateState: true,
+	logGetNextPhase: false,
+	logForcedNextPhase: false,
+	logClicks: false
 };
-
-
 
 var logMessage = function( message, log) {
 	if ( gameElements[log] ) {

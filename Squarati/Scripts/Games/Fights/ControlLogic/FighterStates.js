@@ -4,8 +4,10 @@ class PreFightState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'PreFightState' ;
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 	getNextPhase( enemyFighter ){
+		//logMessage( 'State '+this.name+' get next phase: '+fightPhase.jumping, 'logGetNextPhase' ) ;
 		return fightPhase.jumping;
 	};
 };
@@ -42,23 +44,28 @@ class JumpState extends FightState {
 	};
 	_getNextPhase (){
 		if ( this.fighterDisplay.y < gameElements.skyHeight ) {
+			//logMessage( 'State '+this.name+' get next phase: '+fightPhase.attacking, 'logGetNextPhase' ) ;
 			return fightPhase.attacking ;
 		}else{
+			//logMessage( 'State '+this.name+' get next phase: '+fightPhase.jumping, 'logGetNextPhase' ) ;
 			return fightPhase.jumping;
 		}
 	};
 	performStateEndingAction(enemyFighter){
 		this.angleDirection = 0;
 		this.fighterDisplay.rotate( 0 );
+		//logMessage( 'performStateEndingAction: '+this.name, 'logPerformStateEndingAction' );
 	}; 
 }
 class HumanJumpingState extends JumpState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'HumanJumpingState' ;
+		//logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 
 	handleClick( event ) {
+		logMessage( this.name + ' Handle click', 'logClicks' ) ;
 		this._doJump();
 	};
 
@@ -74,6 +81,7 @@ class ComputerJumpingState extends JumpState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'ComputerJumpingState' ;
+		//logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 
 	updateFighterStatus(){
@@ -97,9 +105,11 @@ class HomeDeadState extends FightState {
 	constructor(display, fighterDisplay, fighter ){
 		super(display, fighterDisplay, fighter );
 		this.name = 'HomeDeadState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show animation
 	};
 	getNextPhase(  ){
+		logMessage( 'State '+this.name+' get next phase: '+fightPhase.dead, 'logGetNextPhase' ) ;
 		return fightPhase.dead;
 	};
 };
@@ -107,8 +117,10 @@ class AwayDeadState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'AwayDeadState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 	getNextPhase(  ){
+		logMessage( 'State '+this.name+' get next phase: '+fightPhase.dead, 'logGetNextPhase' ) ;
 		return fightPhase.dead;
 	};
 };
@@ -117,9 +129,11 @@ class HomeWinnerState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'HomeWinnerState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show animation 
 	};
 	getNextPhase(  ){
+		logMessage( 'State '+this.name+' get next phase: '+fightPhase.winner, 'logGetNextPhase' ) ;
 		return fightPhase.winner;
 	};
 };
@@ -127,8 +141,10 @@ class AwayWinnerState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'AwayWinnerState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 	getNextPhase(  ){
+		logMessage( 'State '+this.name+' get next phase: '+fightPhase.winner, 'logGetNextPhase' ) ;
 		return fightPhase.winner;
 	};
 };

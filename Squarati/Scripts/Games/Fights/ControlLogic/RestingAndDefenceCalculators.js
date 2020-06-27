@@ -66,6 +66,8 @@ var octalRose = {
 	}
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MovementCalculator{
 	constructor	(){
 		this.currentMovementDirection = octalRose.none;
@@ -87,7 +89,7 @@ class DefenceCalculator extends MovementCalculator{
 	processEvent( mouseMoveEvent ) {
 		let movementDirection = octalRose.direction( mouseMoveEvent.movementX, mouseMoveEvent.movementY ) ;
 		let distance = mouseMoveEvent.movementY;
-		if ( ( movementDirection = octalRose.north ) || ( movementDirection == octalRose.south ) ){
+		if ( ( movementDirection == octalRose.north ) || ( movementDirection == octalRose.south ) ){
 			if ( this.currentMovementDirection == octalRose.direction.none ) {
 				this.currentMovementDirection = movementDirection;
 				this.distanceTravelled = Math.abs( distance );

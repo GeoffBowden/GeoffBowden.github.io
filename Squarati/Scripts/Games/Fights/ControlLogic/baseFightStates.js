@@ -32,8 +32,8 @@ class FightState {
 	handleMouseMove( event ) {};
 	handleHttpInput( content ) {};
 	// functions called by state machine in response to game timer
-	updateFighterStatus(){};
-	performStateEndingAction(enemyFighter){}; 
+	updateFighterStatus(){ logMessage( 'class FightState updateFighterStatus: do nothing', 'logUpdateFighterStatus' ); };
+	performStateEndingAction(enemyFighter){logMessage( 'performStateEndingAction: '+this.name, 'logPerformStateEndingAction' );}; 
 	getNextPhase(enemyFighter){};
 };
 

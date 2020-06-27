@@ -79,9 +79,16 @@ class OneOnOneFight{
 		console.log( 'begin' ) ;
 		// add the events to drive the game
 		this.display.canvas.addEventListener( 'click', this.stageClick.bind(this));
+		this.display.canvas.addEventListener( 'mousemove', this.stageMouseMove.bind(this));
+	};
+	stageMouseMove( event ) {
+		if ( this.fightState == fightStates.inFight ){
+				this.homeEngine.handleMouseMove(event) ;
+				this.awayEngine.handleMouseMove(event);
+		};
 	};
 	stageClick( event ) {
-		console.log( 'stage click' );
+		logMessage( 'stage click', 'logClicks' );
 		event.preventDefault();
 		event.stopPropagation();
 		switch ( this.fightState ) {

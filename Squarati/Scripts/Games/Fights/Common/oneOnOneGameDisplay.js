@@ -7,7 +7,27 @@ class GameDisplayClass {
 		this.contentDiv.innerHTML = '<canvas id="game" class="disable-dbl-tap-zoom fight-ring" height="350" width="600">No show</canvas>';
         this.canvas = document.getElementById( 'game' ) ;
 		this.canvas.style.border = "Solid 1px Black";
+		this.canvas.addEventListener('touchstart', preventZoom); 
+		this.canvas.addEventListener('touchend', zoomOff);
 	};
+	function zoomOff(ev){
+		ev.preventDefault();
+		ev.currentTarget.click();
+	};
+	function preventZoom(e) {
+		var t2 = e.timeStamp;
+		var t1 = e.currentTarget.dataset.lastTouch || t2;
+		var dt = t2 - t1;
+		var fingers = e.touches.length;
+		e.currentTarget.dataset.lastTouch = t2;
+
+		if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+		//alert( "zoom" ) ;
+		e.preventDefault();
+		e.stopPropagation();
+		//e.target.click();
+		return false;
+	};	
 };
 
 class OneOnOneGameDisplay extends GameDisplayClass {

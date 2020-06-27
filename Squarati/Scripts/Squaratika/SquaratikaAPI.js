@@ -5,7 +5,14 @@ var SquaratikaAPI = function () {
 	// "Sinichi", "MrVanillaBadGuy"
 	this.getSquaratikaConfig = function (  squaratikaName ) {
 		// if url begins with the word file then 
-		let api = simulateGetConfig;
+		let api = null ;
+		if ( document.URL.lastIndexOf( 'file:', 0 ) === 0 ){
+			api = simulateGetConfig;
+		}
+		else {  
+			throw 'Not yet implement SquaratikaAPI.js line 13' ;
+			api = getConfigFromResourcesSite;
+		}
 		return api( squaratikaName ) ;
 	}; //  getSqaratika config
 	

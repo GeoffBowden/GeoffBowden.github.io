@@ -3,19 +3,20 @@
 class FallingFightState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
-		this.name = 'FallingFightState';
 	};
 	updateFighterStatus() {
 		this.fighterDisplay.y += gameElements.gravityPelsPerTimeout * 2;
 		if ( this.fighterDisplay.y >= gameElements.startY ) {
 			this.fighterDisplay.y = gameElements.startY;
 		};
+		logMessage( 'class FallingFightState updateFighterStatus: this.fighterDisplay.y: '+this.fighterDisplay.y, 'logUpdateFighterStatus' ); 
 	};
 };
 class FallingHurtState extends FallingFightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'FallingHurtState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show animation
 	};
 	getNextPhase( ){
@@ -31,6 +32,7 @@ class FallingTiredState extends FallingFightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'FallingTiredState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show animation
 	};
 	getNextPhase(  ){
@@ -46,6 +48,7 @@ class FallingDeadState extends FallingFightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'FallingDeadState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show suitable animation
 	};
 	getNextPhase(  ){
@@ -58,7 +61,11 @@ class FallingDeadState extends FallingFightState {
 };
 //fightPhase.fallingDead//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class FallingWinningState extends FallingFightState {
-	constructor(display, fighterDisplay, fighter ){ super(display, fighterDisplay, fighter );};
+	constructor(display, fighterDisplay, fighter ){ 
+		super(display, fighterDisplay, fighter );
+		this.name = 'Falling winning';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
+	};
 	getNextPhase(){
 		if ( this.fighterDisplay.y >= gameElements.startY ) {
 			return fightPhase.winner;

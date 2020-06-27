@@ -36,6 +36,7 @@ class FighterStateMachine {
 
 	updateFighterStatus(){
 		if(this.currentState){
+			logMessage( 'class FighterStateMachine updateFighterStatus: fighter name: '+this.fighter.name + ': '+(this.currentState.name?this.currentState.name:'none'), 'logUpdateFighterStatus' ); 
 			this.currentState.updateFighterStatus();
 		};
 	};
@@ -47,18 +48,21 @@ class FighterStateMachine {
 	
 	getNextPhase (enemyFighter) {
 		if(this.currentState){
-			return this.currentState.getNextPhase(enemyFighter);
+			let nextPhase = this.currentState.getNextPhase(enemyFighter);
+			logMessage( 'Machine ' +this.name+', State '+this.currentState.name+' get next phase: '+nextPhase.name, 'logGetNextPhase' ) ;
+			return nextPhase;
 		} else {
+			logMessage( 'Machine ' +this.name+', No State Defined defaulting to '+this.currentPhase.name, 'logGetNextPhase' ) ;		
 			return this.currentPhase;
 		};
 	};
 	
 	moveToPhase(phase){
 		if( !phase ) {
-			throw "moveToPhase not put in" ;
+			throw 'moveToPhase not put in' ;
 		};
 		this.currentPhase = phase;
-		this._initialiseCurrentState()
+		this._initialiseCurrentState();
 	}; // moveToNextPhase
 
 	_initialiseCurrentState(){
@@ -69,9 +73,11 @@ class FighterStateMachine {
 	
 	forceNextPhase (enemyFighter) {
 		if ( !(this.currentState) ){
+			logMessage( 'Machine ' +this.name+', No State Defined defaulting to '+this.currentPhase.name, 'logGetNextPhase' ) ;		
 			this._initialiseCurrentState()
 		}else{
 			let nextPhase = this.currentState.forcedNextPhase(enemyFighter);
+			logMessage( 'Machine ' +this.name+', State '+this.currentState.name+' get next phase: '+nextPhase.name, 'logForcedNextPhase' );
 			this.moveToPhase( nextPhase ) ;
 		};
 	};

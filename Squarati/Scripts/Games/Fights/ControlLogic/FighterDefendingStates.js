@@ -11,6 +11,7 @@ class HumanDefendingState extends CoDependantFightState {
 		this.updateCount = 0 ;
 		this.defenceCalculator = new DefenceCalculator () ;
 		this.name = 'HumanDefendingState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 	handleMouseMove( event ) {
 		//addToFighterDefence () ;
@@ -21,6 +22,7 @@ class HumanDefendingState extends CoDependantFightState {
 		// calculate current defence
 		this.updateCount += 1 ;
 		this.fighter.defenceGained = 10 * ( this.defenceCalculator.totalDistance / this.updateCount );
+		logMessage( 'class HumanDefendingState updateFighterStatus: defenceGained: '+this.fighter.defenceGained+', ticks: ' + this.updateCount, 'logUpdateFighterStatus' ); 
 	};
 	
 	getNextPhase( ){
@@ -41,13 +43,19 @@ class ComputerDefendingState extends FightState {
 		this.updateCount = 0
 		this.total = 0;
 		this.name = 'ComputerDefendingState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 	updateFighterStatus(){
   		// calculate current defence
 		this.updateCount  += 1;
 		let addition = Math.random( ) * 200 ;
 		this.total += addition;
-		this.fighter.defenceGained += 10 * ( this.total / this.updateCount  );
+		if ( this.updateCount <= 10 ) {
+			this.fighter.defenceGained = this.total ;
+		}else{
+			this.fighter.defenceGained = 10 * ( this.total / this.updateCount  );
+		};
+		logMessage( 'class ComputerDefendingState updateFighterStatus: defenceGained: '+this.fighter.defenceGained+', ticks: ' + this.updateCount, 'logUpdateFighterStatus' ); 
 	};
 	
 	getNextPhase( ){
@@ -73,13 +81,19 @@ class ComputerCounterDefendingState extends FightState {
 		this.updateCount = 0
 		this.total = 0;
 		this.name = 'ComputerCounterDefendingState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 	updateFighterStatus(){
 		// calculate current defence
 		this.updateCount  += 1;
 		let addition = Math.random( ) * 200 ;
 		this.total += addition;
-		this.fighter.defenceGained += 10 * ( this.total / this.updateCount  );
+		if ( this.updateCount <= 10 ) {
+			this.fighter.defenceGained = this.total ;
+		}else{
+			this.fighter.defenceGained = 10 * ( this.total / this.updateCount  );
+		};
+		logMessage( 'class ComputerCounterDefendingState updateFighterStatus: defenceGained: '+this.fighter.defenceGained+', ticks: ' + this.updateCount, 'logUpdateFighterStatus' ); 
 	};
 	getNextPhase( enemyFighter ){
 		// do nothing here as linked with counterAttacked
@@ -105,6 +119,7 @@ class HumanCounterDefendingState extends FightState {
 		this.updateCount = 0 ;
 		this.defenceCalculator = new DefenceCalculator () ;
 		this.name = 'HumanCounterDefendingState';
+		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 	handleMouseMove( event ) {
 		//addToFighterDefence () ;
@@ -115,6 +130,7 @@ class HumanCounterDefendingState extends FightState {
 		// calculate current defence
 		this.updateCount += 1 ;
 		this.fighter.defenceGained = 10 * ( this.defenceCalculator.totalDistance / this.updateCount );
+		logMessage( 'class HumanCounterDefendingState updateFighterStatus: defenceGained: '+this.fighter.defenceGained+', ticks: ' + this.updateCount, 'logUpdateFighterStatus' ); 
 	};
 
 	getNextPhase( enemyFighter ){
