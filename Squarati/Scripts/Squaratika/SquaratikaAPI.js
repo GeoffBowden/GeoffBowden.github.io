@@ -10,8 +10,9 @@ var SquaratikaAPI = function () {
 			api = simulateGetConfig;
 		}
 		else {  
-			throw 'Not yet implement SquaratikaAPI.js line 13' ;
-			api = getConfigFromResourcesSite;
+			api = simulateGetConfig;
+//			throw 'Not yet implement SquaratikaAPI.js line 13' ;
+//			api = getConfigFromResourcesSite;
 		}
 		return api( squaratikaName ) ;
 	}; //  getSqaratika config
