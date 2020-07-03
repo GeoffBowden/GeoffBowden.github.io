@@ -136,15 +136,11 @@ class OneOnOneFight{
 	handleTimeOut( event ) {
 		if ( this.fightState == fightStates.inFight ) {
 			// update fighters using state
-			let oldHomeFighterPhase = this.homeEngine.currentPhase;
-			let oldAwayFighterPhase = this.awayEngine.currentPhase;
 			this.homeEngine.updateFighterStatus();
 			this.awayEngine.updateFighterStatus();
-			let nextHomeFighterPhase = this.homeEngine.getNextPhase(this.awayEngine.fighter);
-			let nextAwayFighterPhase = this.awayEngine.getNextPhase(this.homeEngine.fighter);
-		
+
 			// if we are moving phase 
-			this._moveToNextState( oldHomeFighterPhase, nextHomeFighterPhase, oldAwayFighterPhase, nextAwayFighterPhase ) ;
+			this._moveToNextState( ) ;
 			logMessage( 'final HomeFighterPhase: '+ this.homeEngine.currentPhase.name, 'logMoveToNextState' );
 			logMessage( 'final AwayFighterPhase: '+ this.awayEngine.currentPhase.name, 'logMoveToNextState' );
 			logMessage( '__________________ ', 'logMoveToNextState' );
@@ -159,12 +155,14 @@ class OneOnOneFight{
 			};
 		};
 	};
-	_moveToNextState(
-						oldHomeFighterPhase,
-						nextHomeFighterPhase,
-						oldAwayFighterPhase,
-						nextAwayFighterPhase
-				) {
+	_moveToNextState(	) {
+		// get current states	
+		let oldHomeFighterPhase = this.homeEngine.currentPhase;
+		let oldAwayFighterPhase = this.awayEngine.currentPhase;
+		// get next states
+		let nextHomeFighterPhase = this.homeEngine.getNextPhase(this.awayEngine.fighter);
+		let nextAwayFighterPhase = this.awayEngine.getNextPhase(this.homeEngine.fighter);
+
 		logMessage( '__________________ ', 'logMoveToNextState' );
 		logMessage( '__OneOnOne move to next state__', 'logMoveToNextState' );
 		logMessage( 'oldHomeFighterPhase: '+ oldHomeFighterPhase.name, 'logMoveToNextState' );
@@ -172,27 +170,33 @@ class OneOnOneFight{
 		logMessage( 'oldAwayFighterPhase: '+ oldAwayFighterPhase.name, 'logMoveToNextState' );
 		logMessage( 'nextAwayFighterPhase: '+ nextAwayFighterPhase.name, 'logMoveToNextState' );
 		logMessage( '__________________ ', 'logMoveToNextState' );
+		
 		if ( this._phaseHasChanged( oldHomeFighterPhase, nextHomeFighterPhase )) {
 			logMessage( 'home phase has changed', 'logMoveToNextState' ) ;
 			this.homeEngine.performStateEndingAction( this.awayEngine.fighter ) ;
-//			nextHomeFighterPhase = this.homeEngine.
+			nextHomeFighterPhase = this.homeEngine.getNextPhase(this.awayEngine.fighter);
 			this.homeEngine.moveToPhase(nextHomeFighterPhase);
 			// if enemy state is co-dependant then we have to force it's state 
 			if( oldAwayFighterPhase.coDependant ) {
+				logMessage( 'oldAwayFighterPhase is coDependant', 'logMoveToNextState' ) ;
 				this.awayEngine.performStateEndingAction( this.homeEngine.fighter ) ;
 				this.awayEngine.forceNextPhase(this.homeEngine.fighter) ;
 				return;
 			};
 			if (nextHomeFighterPhase.paired ) {
+				logMessage( 'next home phase is paired', 'logMoveToNextState' ) ;
 				this.awayEngine.performStateEndingAction( this.homeEngine.fighter ) ;
 				this.awayEngine.moveToPhase(nextHomeFighterPhase.paired) ;
 				return;
 			};
 		};
 		if ( this._phaseHasChanged( oldAwayFighterPhase, nextAwayFighterPhase )){
+			logMessage( 'away phase has changed', 'logMoveToNextState' ) ;
 			this.awayEngine.performStateEndingAction( this.homeEngine.fighter );
+			nextAwayFighterPhase = this.awayEngine.getNextPhase(this.homeEngine.fighter);
 			this.awayEngine.moveToPhase(nextAwayFighterPhase);
 			if( oldHomeFighterPhase.coDependant ) {
+				logMessage( 'old home fighter phase is coDependant', 'logMoveToNextState' ) ;
 				if (this._homeEndStateActionNotPerformed( oldHomeFighterPhase, nextHomeFighterPhase )) {
 					this.homeEngine.performStateEndingAction( this.awayEngine.fighter );
 				};
@@ -200,6 +204,7 @@ class OneOnOneFight{
 				return;
 			};
 			if(nextAwayFighterPhase.paired){
+				logMessage( 'next away fighter phase is paired', 'logMoveToNextState' ) ;
 				if (this._homeEndStateActionNotPerformed( oldHomeFighterPhase, nextHomeFighterPhase )) {
 					this.homeEngine.performStateEndingAction( this.awayEngine.fighter );
 				};

@@ -22,7 +22,7 @@ class FighterDisplay {
 		config.images = [this.spriteMap];
 		let spriteSheet = new createjs.SpriteSheet( config ) ;
 		this.playerAnimation = new createjs.Sprite( spriteSheet, 'happy' ) ;
-		this.linitialised = true;
+		this.initialised = true;
 		return this.playerAnimation;
 	};
 	handLoad( img, x, y ) {

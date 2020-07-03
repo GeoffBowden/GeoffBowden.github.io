@@ -27,6 +27,7 @@ class GameHvsCOneOnOne extends GameClass {
 									);
 		// test code
 		//this.display.canvas.addEventListener( 'click', this.canvasClick.bind(this));
+		//this.clickTestVal = 0;
 	};
 	beginFight( ){
 		console.log( 'begin fight' ) ;
@@ -44,6 +45,13 @@ class GameHvsCOneOnOne extends GameClass {
 	
 	canvasClick ( event ) {
 		console.log( 'click' ) ;
+		if ( this.clickTestVal % 2 == 0 ){
+			this.display.showFingerTapAnimation();
+		}else{
+			this.display.hideFingerTapAnimation();
+		};
+		this.clickTestVal += 1 ;
+		return false;
 		//this.fight.stageClick( event );
 //		if ( this.display.___ticko == undefined ) {
 //			this.display.___ticko = 0

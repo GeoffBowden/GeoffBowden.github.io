@@ -49,6 +49,9 @@ class FighterStateMachine {
 	getNextPhase (enemyFighter) {
 		if(this.currentState){
 			let nextPhase = this.currentState.getNextPhase(enemyFighter);
+			if ( nextPhase == undefined ){
+				throw 'Machine ' + this.name + ': undefined next state from ' + this.currentState.name + '.getNextPhase()';
+			};
 			logMessage( 'Machine ' +this.name+', State '+this.currentState.name+' get next phase: '+nextPhase.name, 'logGetNextPhase' ) ;
 			return nextPhase;
 		} else {
@@ -59,7 +62,7 @@ class FighterStateMachine {
 	
 	moveToPhase(phase){
 		if( !phase ) {
-			throw 'moveToPhase not put in' ;
+			throw 'Machine ' + this.name + 'moveToPhase not put in' ;
 		};
 		this.currentPhase = phase;
 		this._initialiseCurrentState();
@@ -67,7 +70,7 @@ class FighterStateMachine {
 
 	_initialiseCurrentState(){
 		let stateClass = this.states[this.currentPhase.name]; 
-		if (!(stateClass)){ throw 'no state class defined for phase '+ this.currentPhase + ' in '  + this.name ; };
+		if (!(stateClass)){ throw 'Machine ' + this.name + 'no state class defined for phase '+ this.currentPhase; };
 		this.currentState = new stateClass (this.display, this.fighterDisplay, this.fighter) 
 	};
 	

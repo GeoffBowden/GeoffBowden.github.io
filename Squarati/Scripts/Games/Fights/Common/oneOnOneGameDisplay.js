@@ -7,8 +7,8 @@ class GameDisplayClass {
 		this.contentDiv.innerHTML = '<canvas id="game" class="disable-dbl-tap-zoom fight-ring" height="350" width="600">No show</canvas>';
         this.canvas = document.getElementById( 'game' ) ;
 		this.canvas.style.border = "Solid 1px Black";
-		this.canvas.addEventListener('touchstart', this.preventZoom.bind(this)); 
-		this.canvas.addEventListener('touchend', this.zoomOff.bind(this));
+		this.canvas.addEventListener('touchstart', this.preventZoom.bind( this ) ); 
+		this.canvas.addEventListener('touchend', this.zoomOff.bind( this ) );
 	};
 	zoomOff(ev){
 		ev.preventDefault();
@@ -54,7 +54,8 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 			{src: homePlayer.rightHandImageLocation, id: 'homePlayerRightHandImage'},
 			{src: awayPlayer.spriteMap, id: 'awayPlayerImage'},
 			{src: awayPlayer.leftHandImageLocation, id: 'awayPlayerLeftHandImage'},
-			{src: awayPlayer.rightHandImageLocation, id: 'awayPlayerRightHandImage'}
+			{src: awayPlayer.rightHandImageLocation, id: 'awayPlayerRightHandImage'},
+			{src: systemSettings.fingerTapAnimation.fileName, id: 'tapAnimation' }
 			];
 		this.internalError = false;
 		this.loader = new createjs.LoadQueue( false ) ;
@@ -88,32 +89,41 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 			rightHand.crossOrigin = 'Anonymous';
 			this.awayFighterDisplay = new FighterDisplay( this.stage, this.awayPlayer, 400, gameElements.startY, bodyImage, leftHand, rightHand );
 			
+			let tapAnimationFile = this.loader.getResult( 'tapAnimation' );
+			tapAnimationFile.crossOrigin = "Anonymous";
+			let tapAnimationConfig = rfdc()( systemSettings.fingerTapAnimation.animation );
+			tapAnimationConfig.images = [tapAnimationFile];
+			let tapAnimationSpriteSheet = new createjs.SpriteSheet( tapAnimationConfig ) ;
+			this.tapAnimation = new createjs.Sprite( tapAnimationSpriteSheet, 'tap' ) ;
+			this.tapAnimation.x = 275;
+			this.tapAnimation.y = 75;
+			
 			this.stage.addChild( 
-				this.backGroundDisplay.scene ,
-				this.backGroundDisplay.groundIndicator,
-				this.backGroundDisplay.skyIndicator, 
+				this.backGroundDisplay.scene 
+			,	this.backGroundDisplay.groundIndicator
+			,	this.backGroundDisplay.skyIndicator
 				
-				this.backGroundDisplay.header.background, 
-				this.backGroundDisplay.header.text,
+			,	this.backGroundDisplay.header.background
+			,	this.backGroundDisplay.header.text
+			
+			,	this.backGroundDisplay.homeFighterHealthBar.background
+			,	this.backGroundDisplay.homeFighterHealthBar.foreground
+			,	this.backGroundDisplay.awayFighterHealthBar.background
+			,	this.backGroundDisplay.awayFighterHealthBar.foreground
 				
-				this.backGroundDisplay.homeFighterHealthBar.background,
-				this.backGroundDisplay.homeFighterHealthBar.foreground,
-				this.backGroundDisplay.awayFighterHealthBar.background,
-				this.backGroundDisplay.awayFighterHealthBar.foreground,
+			,	this.backGroundDisplay.playerScore.background
+			,	this.backGroundDisplay.playerScore.text
+			,	this.backGroundDisplay.opponentScore.background
+			,	this.backGroundDisplay.opponentScore.text
 				
-				this.backGroundDisplay.playerScore.background,
-				this.backGroundDisplay.playerScore.text,
-				this.backGroundDisplay.opponentScore.background,
-				this.backGroundDisplay.opponentScore.text,
+			,	this.homeFighterDisplay.playerAnimation
+			,	this.homeFighterDisplay.leftHand
+			,	this.homeFighterDisplay.rightHand
 				
-				this.homeFighterDisplay.playerAnimation,
-				this.homeFighterDisplay.leftHand,
-				this.homeFighterDisplay.rightHand,
-				
-				this.awayFighterDisplay.playerAnimation,
-				this.awayFighterDisplay.leftHand,
-				this.awayFighterDisplay.rightHand		
-			);
+			,	this.awayFighterDisplay.playerAnimation
+			,	this.awayFighterDisplay.leftHand
+			,	this.awayFighterDisplay.rightHand		
+				);
 			
 			this.start() ;
 			if ( this.callback ) { this.callback( this.stage ) ; };
@@ -142,7 +152,13 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 		this.backGroundDisplay.header.setBackGroundColor( color );
 	};
 	/////////////////////////////////////////////////////////////////////////
-	
+	showFingerTapAnimation() {
+		this.stage.addChild( this.tapAnimation  ); //, 19 ) ;
+	};
+	hideFingerTapAnimation(){
+		this.stage.removeChild( this.tapAnimation ); //, 19 ) ;
+	};
+	/////////////////////////////////////////////////////////////////////////
 	clear() {
 		myStage.enableDOMEvents(false);
 		success = createjs.Ticker.removeEventListener("tick", this.handleAnimationTick30fps.bind(this) ) ;

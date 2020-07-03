@@ -36,10 +36,22 @@ class BaseAttackingFightState extends FightState {
 		
 		let defence = enemyFighter.defenceGained / enemyFighter.defenceTarget ;
 		if ( defence > 0.9 ) { defence = 0.9; };
+		let totalDefence = ( totalDamage * defence ) ;
+
+		logMessage( '-------'+this.name+'------------------------------------------------', 'logPerformStateEndingAction' ) ;
+		logMessage( 'Get Damage Summary: '+ this.name+': ' , 'logPerformStateEndingAction' ) ;
+		logMessage( '	percentageOfAttack: '+ percentageOfAttack , 'logPerformStateEndingAction' ) ;
+		logMessage( '	damageModifier: '+ damageModifier , 'logPerformStateEndingAction' ) ;
+		logMessage( '	baseDamage: '+ baseDamage , 'logPerformStateEndingAction' ) ;
+		logMessage( '	totalDamage: '+ totalDamage , 'logPerformStateEndingAction' ) ;
+		logMessage( '	defence: '+ defence , 'logPerformStateEndingAction' ) ;
+		logMessage( '	totalDefence: '+ totalDefence , 'logPerformStateEndingAction' ) ;
+		logMessage( '	Result: '+ (totalDamage - totalDefence) , 'logPerformStateEndingAction' ) ;
+		logMessage( '-------------------------------------------------------------------------' , 'logPerformStateEndingAction' ) ;
 		
-		totalDamage = totalDamage - ( totalDamage * defence ) ;
+		let result = totalDamage - totalDefence;
 		
-		return totalDamage;
+		return result;
 	};
 };
 
@@ -53,7 +65,7 @@ class HomeAttackingState extends BaseAttackingFightState {
 		// start animation on display with call back 
 		if ( this.callbackDone ) {
 		// this does not work
-			let damageToBeDone = this.getDamage(enemyFighter );
+			let damageToBeDone = 0; //this.getDamage(enemyFighter );
 			let enemyEnergyRemaining = enemyFighter.fightingStatistics.currentFightingStatistics.hp - damageToBeDone ;
 			if( enemyEnergyRemaining <= 0 ){
 				return fightPhase.fallingWinning;
@@ -69,6 +81,7 @@ class HomeAttackingState extends BaseAttackingFightState {
 			// set enemy stat level 
 			enemyFighter.fightingStatistics.currentFightingStatistics.hp -= damage;
 			logMessage( 'PerformStateEndingAction: '+ this.name+', Damage: ' +damage, 'logPerformStateEndingAction' ) ;
+			logMessage( '     Enemy hitpoints remaining: '+enemyFighter.fightingStatistics.currentFightingStatistics.hp, 'logPerformStateEndingAction' ) ;
 			// call update on display let display take care of the animation 
 			this.display.backGroundDisplay.awayFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp ) ;
 	}; 
@@ -99,6 +112,7 @@ class AwayAttackingState extends BaseAttackingFightState {
 			// set enemy stat level 
 			enemyFighter.fightingStatistics.currentFightingStatistics.hp -= damage;
 			logMessage( 'PerformStateEndingAction: '+ this.name+', Damage: ' +damage, 'logPerformStateEndingAction' ) ;
+			logMessage( '     Enemy hitpoints remaining: '+enemyFighter.fightingStatistics.currentFightingStatistics.hp, 'logPerformStateEndingAction' ) ;
 			// call update on display let display take care of the animation 
 			this.display.backGroundDisplay.homeFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp ) ;
 	}; 
@@ -116,7 +130,7 @@ class HomeCounterAttackingState extends BaseAttackingFightState {
 		// start animation on display with call back 
 		if ( this.callbackDone ) {
 			if ( enemyFighter.fightingStatistics.currentFightingStatistics.hp <= 0 ){
-				return fightPhase.fallingWinner;
+				return fightPhase.fallingWinning;
 			}else{
 				return fightPhase.fallingHurt;
 			};
@@ -129,6 +143,7 @@ class HomeCounterAttackingState extends BaseAttackingFightState {
 			// set enemy stat level 
 			enemyFighter.fightingStatistics.currentFightingStatistics.hp -= damage;
 			logMessage( 'PerformStateEndingAction: '+ this.name+', Damage: ' +damage, 'logPerformStateEndingAction' ) ;
+			logMessage( '     Enemy hitpoints remaining: '+enemyFighter.fightingStatistics.currentFightingStatistics.hp, 'logPerformStateEndingAction' ) ;
 			// call update on display let display take care of the animation 
 			this.display.backGroundDisplay.awayFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp ) ;
 	}; 
@@ -144,7 +159,7 @@ class AwayCounterAttackingState extends BaseAttackingFightState {
 		// start animation on display with call back 
 		if ( this.callbackDone ) {
 			if ( enemyFighter.fightingStatistics.currentFightingStatistics.hp <= 0 ){
-				return fightPhase.fallingWinner;
+				return fightPhase.fallingWinning;
 			}else{
 				return fightPhase.fallingHurt;
 			};
@@ -157,6 +172,7 @@ class AwayCounterAttackingState extends BaseAttackingFightState {
 			// set enemy stat level 
 			enemyFighter.fightingStatistics.currentFightingStatistics.hp -= damage;
 			logMessage( 'PerformStateEndingAction: '+ this.name+', Damage: ' +damage, 'logPerformStateEndingAction' ) ;
+			logMessage( '     Enemy hitpoints remaining: '+enemyFighter.fightingStatistics.currentFightingStatistics.hp, 'logPerformStateEndingAction' ) ;
 			// call update on display let display take care of the animation 
 			this.display.backGroundDisplay.homeFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp ) ;
 	}; 

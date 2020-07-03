@@ -61,6 +61,7 @@ class HumanJumpingState extends JumpState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
 		this.name = 'HumanJumpingState' ;
+		this.display.showFingerTapAnimation();
 		//logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 	};
 
@@ -68,13 +69,17 @@ class HumanJumpingState extends JumpState {
 		logMessage( this.name + ' Handle click', 'logClicks' ) ;
 		this._doJump();
 	};
-
+	performStateEndingAction(enemyFighter){
+		super.performStateEndingAction(enemyFighter)
+		this.display.hideFingerTapAnimation();
+	};
 	updateFighterStatus(){
 		this._doGravity();
 	};
 	
 	getNextPhase( enemyFighter ){
-		return this._getNextPhase();
+		let nextPhase = this._getNextPhase();
+		return nextPhase;
 	};
 };
 class ComputerJumpingState extends JumpState {

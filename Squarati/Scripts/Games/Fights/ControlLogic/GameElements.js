@@ -14,10 +14,10 @@ var gameElements = {
 	basicRestingPerTick: 800,
 	bonusRestingPerTick: 150,
 	log: logMessage, // alternate way of calling - do not use
-	logMoveToNextState: false,
+	logMoveToNextState: true,
 	logUpdateFighterStatus: false,
-	logPerformStateEndingAction: false,
-	logCreateState: true,
+	logPerformStateEndingAction: true,
+	logCreateState: false,
 	logGetNextPhase: false,
 	logForcedNextPhase: false,
 	logClicks: false

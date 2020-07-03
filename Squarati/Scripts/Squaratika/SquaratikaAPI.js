@@ -11,8 +11,8 @@ var SquaratikaAPI = function () {
 		}
 		else {  
 			api = simulateGetConfig;
-//			throw 'Not yet implement SquaratikaAPI.js line 13' ;
-//			api = getConfigFromResourcesSite;
+			//throw 'Not yet implement SquaratikaAPI.js line 13' ;
+			//api = getConfigFromResourcesSite;
 		}
 		return api( squaratikaName ) ;
 	}; //  getSqaratika config
