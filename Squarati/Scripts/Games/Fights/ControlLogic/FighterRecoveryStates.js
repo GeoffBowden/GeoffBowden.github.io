@@ -10,6 +10,8 @@ class HumanRecoveringState extends FightState {
 		this.fighter.recoveryLevel = 0 ;
 		this.recoveryCalculator = new RecoveryCalculator ();
 		this.tickCount = 0 ;
+		this.display.showRecoveryInstructions();
+		this.fighterDisplay.showAsRecovering();
 	};
 	handleMouseMove( event ) {
 		this.recoveryCalculator.processEvent( event );
@@ -20,6 +22,9 @@ class HumanRecoveringState extends FightState {
 		let average = this.recoveryCalculator.totalDistance / this.tickCount ;
 		this.fighter.recoveryLevel += gameElements.basicRecoveryPerTick  + average;
 		logMessage( 'class HumanRecoveringState updateFighterStatus: recoveryLevel: '+this.fighter.recoveryLevel+', ticks: ' + this.tickCount, 'logUpdateFighterStatus' ); 
+	};
+	performStateEndingAction(){
+		this.display.hideFingerHorizontalSwipeAnimation();
 	};
 	getNextPhase(  ){
 		if ( this.fighter.recoveryLevel >= this.fighter.recoveryTarget ) {
@@ -35,6 +40,7 @@ class ComputerRecoveringState extends FightState {
 		this.name = 'ComputerRecoveringState';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		this.fighter.recoveryLevel = 0;
+		this.fighterDisplay.showAsRecovering();
 	};
 	updateFighterStatus(){
 		let randomAdd = Math.round( Math.random() * gameElements.bonusRecoveryPerTick )

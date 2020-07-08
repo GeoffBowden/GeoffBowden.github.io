@@ -3,6 +3,7 @@
 class FallingFightState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
+		this.fighterDisplay.showAsFallingHurt();
 	};
 	updateFighterStatus() {
 		this.fighterDisplay.y += gameElements.gravityPelsPerTimeout * 2;
@@ -50,6 +51,7 @@ class FallingDeadState extends FallingFightState {
 		this.name = 'FallingDeadState';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show suitable animation
+		this.fighterDisplay.showAsFallingDead();
 	};
 	getNextPhase(  ){
 		if ( this.fighterDisplay.y >= gameElements.startY ) {
@@ -65,6 +67,7 @@ class FallingWinningState extends FallingFightState {
 		super(display, fighterDisplay, fighter );
 		this.name = 'Falling winning';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
+		this.fighterDisplay.showAsFallingWinner();
 	};
 	getNextPhase(){
 		if ( this.fighterDisplay.y >= gameElements.startY ) {

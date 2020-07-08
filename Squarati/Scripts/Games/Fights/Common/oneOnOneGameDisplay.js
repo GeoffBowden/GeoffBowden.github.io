@@ -55,7 +55,9 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 			{src: awayPlayer.spriteMap, id: 'awayPlayerImage'},
 			{src: awayPlayer.leftHandImageLocation, id: 'awayPlayerLeftHandImage'},
 			{src: awayPlayer.rightHandImageLocation, id: 'awayPlayerRightHandImage'},
-			{src: systemSettings.fingerTapAnimation.fileName, id: 'tapAnimation' }
+			{src: systemSettings.fingerTapAnimation.fileName, id: 'tapAnimation' },
+			{src: systemSettings.fingerHorizontalSwipeAnimation.fileName, id: 'horizontalSwipeAnimation' },
+			{src: systemSettings.fingerVerticalSwipeAnimation.fileName, id: 'verticalSwipeAnimation' }
 			];
 		this.internalError = false;
 		this.loader = new createjs.LoadQueue( false ) ;
@@ -69,7 +71,7 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 			img.crossOrigin = 'Anonymous'  ;
 			this.backGroundDisplay = new BackGroundDisplay(this.stage, img ) ;
 			this.backGroundDisplay.homeFighterHealthBar.maximum = this.homePlayer.fightingStatistics.currentFightingStatistics.hp;
-			this.backGroundDisplay.homeFighterHealthBar.setCurrent ( this.homePlayer.fightingStatistics.currentFightingStatistics.hp );
+			this.backGroundDisplay.homeFighterHealthBar.setCurrent ( this.homePlayer.fightingStatistics.currentFightingStatistics.hp, false );
 			this.backGroundDisplay.awayFighterHealthBar.maximum = this.awayPlayer.fightingStatistics.currentFightingStatistics.hp;
 			this.backGroundDisplay.awayFighterHealthBar.setCurrent ( this.awayPlayer.fightingStatistics.currentFightingStatistics.hp, false );
 			
@@ -89,15 +91,21 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 			rightHand.crossOrigin = 'Anonymous';
 			this.awayFighterDisplay = new FighterDisplay( this.stage, this.awayPlayer, 400, gameElements.startY, bodyImage, leftHand, rightHand );
 			
-			let tapAnimationFile = this.loader.getResult( 'tapAnimation' );
-			tapAnimationFile.crossOrigin = "Anonymous";
-			let tapAnimationConfig = rfdc()( systemSettings.fingerTapAnimation.animation );
-			tapAnimationConfig.images = [tapAnimationFile];
-			let tapAnimationSpriteSheet = new createjs.SpriteSheet( tapAnimationConfig ) ;
+			let tapAnimationSpriteSheet = this.getSpriteSheetFromAnimationConfig( 'tapAnimation', systemSettings.fingerTapAnimation.animation );
 			this.tapAnimation = new createjs.Sprite( tapAnimationSpriteSheet, 'tap' ) ;
-			this.tapAnimation.x = 275;
-			this.tapAnimation.y = 75;
+			this.tapAnimation.x = systemSettings.fingerTapAnimation.x;
+			this.tapAnimation.y = systemSettings.fingerTapAnimation.y;
 			
+			let horizontalSwipeSpriteSheet = this.getSpriteSheetFromAnimationConfig( 'horizontalSwipeAnimation', systemSettings.fingerHorizontalSwipeAnimation.animation ) ;
+			this.horizontalSwipeAnimation = new createjs.Sprite( horizontalSwipeSpriteSheet, 'swipe' ) ;
+			this.horizontalSwipeAnimation.x = systemSettings.fingerHorizontalSwipeAnimation.x ;
+			this.horizontalSwipeAnimation.y = systemSettings.fingerHorizontalSwipeAnimation.y;
+			
+			let verticalSwipeSpriteSheet = this.getSpriteSheetFromAnimationConfig( 'verticalSwipeAnimation', systemSettings.fingerHorizontalSwipeAnimation.animation ) ;
+			this.verticalSwipeAnimation = new createjs.Sprite( verticalSwipeSpriteSheet, 'swipe' ) ;
+			this.verticalSwipeAnimation.x = systemSettings.fingerVerticalSwipeAnimation.x ;
+			this.verticalSwipeAnimation.y = systemSettings.fingerVerticalSwipeAnimation.y;
+
 			this.stage.addChild( 
 				this.backGroundDisplay.scene 
 			,	this.backGroundDisplay.groundIndicator
@@ -135,6 +143,15 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 		this.callback = null ;
 		console.log( event ) ;
 	};
+	// create instruction spritesheets //////////////
+	getSpriteSheetFromAnimationConfig( manifestName, configObject ) {
+			let animationFile = this.loader.getResult( manifestName );
+			animationFile.crossOrigin = "Anonymous";
+			let animationConfig = rfdc()( configObject );
+			animationConfig.images = [animationFile];
+			let animationSpriteSheet = new createjs.SpriteSheet( animationConfig ) ;
+			return animationSpriteSheet ;
+	}; // animation config
 	// heading functions ///////////////////////////////////
 	setHeading( heading, alpha ){
 		this.backGroundDisplay.header.text.text = heading ;
@@ -153,10 +170,24 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 	};
 	/////////////////////////////////////////////////////////////////////////
 	showFingerTapAnimation() {
-		this.stage.addChild( this.tapAnimation  ); //, 19 ) ;
+		this.stage.addChild( this.tapAnimation  ); 
 	};
 	hideFingerTapAnimation(){
-		this.stage.removeChild( this.tapAnimation ); //, 19 ) ;
+		this.stage.removeChild( this.tapAnimation ); 
+	};
+	////
+	showFingerHorizontalSwipeAnimation() {
+		this.stage.addChild( this.horizontalSwipeAnimation  ); 
+	};
+	hideFingerHorizontalSwipeAnimation() {
+		this.stage.removeChild( this.horizontalSwipeAnimation ); 
+	};
+	////
+	showFingerVerticalSwipeAnimation() {
+		this.stage.addChild( this.verticalSwipeAnimation  ); 
+	};
+	hideFingerVerticalSwipeAnimation() {
+		this.stage.removeChild( this.verticalSwipeAnimation ); 
 	};
 	/////////////////////////////////////////////////////////////////////////
 	clear() {
@@ -193,11 +224,21 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 			throw 'one on one game display.animateAttack - handle animation not yet implemented' ;
 		}
 	};
-	showDefendingInstructions (){
+	showDefendingInstructions ( fighter ){
 		// this will show an animation and fade it out based on ticks
-		// no call back needed , maybe an animation?
+		// no call back needed 
+		this.showFingerVerticalSwipeAnimation();
 	};
-	
+	showRestingInstructions ( fighter ){
+		// this will show an animation and fade it out based on ticks
+		// no call back needed 
+		this.showFingerHorizontalSwipeAnimation();
+	};	
+	showRecoveryInstructions ( fighter ){
+		// this will show an animation and fade it out based on ticks
+		// no call back needed 
+		this.showFingerHorizontalSwipeAnimation();
+	};	
 }; // game display class
 
 

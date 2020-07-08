@@ -70,24 +70,20 @@ class FighterDisplay {
 		this.leftHand.rotation = degs ;
 		this.rightHand.rotation = degs ;
 	};
-	happy(){
-		let currentFrame = this.playerAnimation.currentFrame;
-		this.playerAnimation.gotoAndPlay( "happy" );
-		this.playerAnimation.gotoAndPlay( currentFrame );
-	};
-	pain(){
-		let currentFrame = this.playerAnimation.currentFrame;
-		this.playerAnimation.gotoAndPlay( "pain" );
-		this.playerAnimation.gotoAndPlay( currentFrame );
-	};
-	resting(){
-		let currentFrame = this.playerAnimation.currentFrame;
-		this.playerAnimation.gotoAndPlay( "resting" );
-		this.playerAnimation.gotoAndPlay( currentFrame );
-	};
-	sad(){
-		let currentFrame = this.playerAnimation.currentFrame;
-		this.playerAnimation.gotoAndPlay( "sad" );
-		this.playerAnimation.gotoAndPlay( currentFrame );
-	};
+	///show various states///////////////////////////////////////////////////////////////////////
+	showAsPrefight(){this.playerAnimation.gotoAndPlay( "happy" );};
+	showAsJumping(){this.playerAnimation.gotoAndPlay( "happy" );};  
+	showAsAttacking(){this.playerAnimation.gotoAndPlay( "pain" );};
+	showAsDefending(){this.playerAnimation.gotoAndPlay( "pain" );};
+	showAsCounterAttacking(){this.playerAnimation.gotoAndPlay( "pain" );};
+	showAsCounterDefending(){this.playerAnimation.gotoAndPlay( "pain" );};
+	showAsFallingHurt(){this.playerAnimation.gotoAndPlay( "resting" );};
+	showAsFallingTired(){this.playerAnimation.gotoAndPlay( "resting" );};
+	showAsFallingWinner(){this.playerAnimation.gotoAndPlay( "sad" );};
+	showAsFallingDead(){this.playerAnimation.gotoAndPlay( "sad" );};
+	showAsRecovering(){this.playerAnimation.gotoAndPlay( "resting" );};
+	showAsResting(){this.playerAnimation.gotoAndPlay( "resting" );};
+	showAsDead(){this.playerAnimation.gotoAndPlay( "sad" );};
+	showAsWinner(){this.playerAnimation.gotoAndPlay( "happy" );};
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 } ; // class fighter display

@@ -6,6 +6,7 @@ class BaseAttackingFightState extends FightState {
 		super(display, fighterDisplay, fighter );
 		this.callbackDone = false ;
 		this.display.animateAttack( this.fighterDisplay, this.callback.bind(this) );
+		this.fighterDisplay.showAsAttacking();
 	};
 	callback() {
 		this.callbackDone = true;
@@ -83,7 +84,7 @@ class HomeAttackingState extends BaseAttackingFightState {
 			logMessage( 'PerformStateEndingAction: '+ this.name+', Damage: ' +damage, 'logPerformStateEndingAction' ) ;
 			logMessage( '     Enemy hitpoints remaining: '+enemyFighter.fightingStatistics.currentFightingStatistics.hp, 'logPerformStateEndingAction' ) ;
 			// call update on display let display take care of the animation 
-			this.display.backGroundDisplay.awayFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp ) ;
+			this.display.backGroundDisplay.awayFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp, true ) ;
 	}; 
 };
 // like home but update the home health bar no the away one
@@ -114,7 +115,7 @@ class AwayAttackingState extends BaseAttackingFightState {
 			logMessage( 'PerformStateEndingAction: '+ this.name+', Damage: ' +damage, 'logPerformStateEndingAction' ) ;
 			logMessage( '     Enemy hitpoints remaining: '+enemyFighter.fightingStatistics.currentFightingStatistics.hp, 'logPerformStateEndingAction' ) ;
 			// call update on display let display take care of the animation 
-			this.display.backGroundDisplay.homeFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp ) ;
+			this.display.backGroundDisplay.homeFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp, true ) ;
 	}; 
 };
 
@@ -145,7 +146,7 @@ class HomeCounterAttackingState extends BaseAttackingFightState {
 			logMessage( 'PerformStateEndingAction: '+ this.name+', Damage: ' +damage, 'logPerformStateEndingAction' ) ;
 			logMessage( '     Enemy hitpoints remaining: '+enemyFighter.fightingStatistics.currentFightingStatistics.hp, 'logPerformStateEndingAction' ) ;
 			// call update on display let display take care of the animation 
-			this.display.backGroundDisplay.awayFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp ) ;
+			this.display.backGroundDisplay.awayFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp, true ) ;
 	}; 
 };
 // like home but update the home health bar no the away one
@@ -174,6 +175,6 @@ class AwayCounterAttackingState extends BaseAttackingFightState {
 			logMessage( 'PerformStateEndingAction: '+ this.name+', Damage: ' +damage, 'logPerformStateEndingAction' ) ;
 			logMessage( '     Enemy hitpoints remaining: '+enemyFighter.fightingStatistics.currentFightingStatistics.hp, 'logPerformStateEndingAction' ) ;
 			// call update on display let display take care of the animation 
-			this.display.backGroundDisplay.homeFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp ) ;
+			this.display.backGroundDisplay.homeFighterHealthBar.setCurrent( enemyFighter.fightingStatistics.currentFightingStatistics.hp, true ) ;
 	}; 
 };

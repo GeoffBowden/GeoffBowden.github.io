@@ -10,6 +10,8 @@ class HumanRestingState extends FightState {
 		this.fighter.restingLevel = 0;
 		this.restingCalculator = new RecoveryCalculator() ;
 		this.tickCount = 0;
+		this.display.showRestingInstructions() ;
+		this.fighterDisplay.showAsResting();
 	};
 	updateFighterStatus(){
 		this.tickCount += 1;
@@ -17,6 +19,9 @@ class HumanRestingState extends FightState {
 		this.fighter.restingLevel += gameElements.basicRestingPerTick + average;
 		logMessage( 'class HumanRestingState updateFighterStatus: restingLevel: '+this.fighter.restingLevel+', ticks: ' + this.tickCount, 'logUpdateFighterStatus' ); 
 	};
+	performStateEndingAction(){
+		this.display.hideFingerHorizontalSwipeAnimation();
+	}
 	handleMouseMove( event ) {
 		this.restingCalculator.processEvent( event );
 	};
@@ -35,6 +40,7 @@ class ComputerRestingState extends FightState {
 		this.name = 'ComputerRestingState';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		this.fighter.restingLevel = 0 ;
+		this.fighterDisplay.showAsResting();
 	};
 	updateFighterStatus(){
 		let randomAdd = Math.round( Math.random() * gameElements.bonusRestingPerTick )

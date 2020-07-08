@@ -2,10 +2,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //fightPhase.defending//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // shows the how to defend animation, this will run its course naturally and this state does not monitor if it has finished
-// mouse movement events will calculate the total defence acheived by 
+// mouse movement events will calculate the total defence achieved by 
 class HumanDefendingState extends CoDependantFightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
+		this.fighterDisplay.showAsDefending();
 		this.display.showDefendingInstructions() ; 
 		this.fighter.defenceGained = 0;
 		this.updateCount = 0 ;
@@ -24,11 +25,15 @@ class HumanDefendingState extends CoDependantFightState {
 		this.fighter.defenceGained = 10 * ( this.defenceCalculator.totalDistance / this.updateCount );
 		logMessage( 'class HumanDefendingState updateFighterStatus: defenceGained: '+this.fighter.defenceGained+', ticks: ' + this.updateCount, 'logUpdateFighterStatus' ); 
 	};
+	performStateEndingAction(){
+		this.display.hideFingerVerticalSwipeAnimation();
+	};
 	
 	getNextPhase( ){
 		return fightPhase.defending;
 	};
 	forcedNextPhase ( ) {
+		this.performStateEndingAction();
 		if ( this.fighter.fightingStatistics.currentFightingStatistics.hp <= 0 ){
 			return fightPhase.fallingDead;
 		}else{
@@ -39,6 +44,7 @@ class HumanDefendingState extends CoDependantFightState {
 class ComputerDefendingState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
+		this.fighterDisplay.showAsDefending();
 		this.fighter.defenceGained = 0;
 		this.updateCount = 0
 		this.total = 0;
@@ -62,6 +68,7 @@ class ComputerDefendingState extends FightState {
 		return fightPhase.defending;
 	};
 	forcedNextPhase ( ) {
+		this.performStateEndingAction();
 		if ( this.fighter.fightingStatistics.currentFightingStatistics.hp <= 0 ){
 			return fightPhase.fallingDead;
 		}else{
@@ -77,6 +84,7 @@ class ComputerDefendingState extends FightState {
 class ComputerCounterDefendingState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
+		this.fighterDisplay.showAsCounterDefending();
 		this.fighter.defenceGained = 0;
 		this.updateCount = 0
 		this.total = 0;
@@ -100,6 +108,7 @@ class ComputerCounterDefendingState extends FightState {
 		return fightPhase.counterDefending;
 	};
 	forcedNextPhase( enemyFighter ){
+		this.performStateEndingAction();
 		if( this.fighter.fightingStatistics.currentFightingStatistics.hp <= 0 ){
 			return fightPhase.fallingDead;
 		}else{
@@ -111,9 +120,12 @@ class ComputerCounterDefendingState extends FightState {
 		};
 	};
 };
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class HumanCounterDefendingState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ 
 		super(display, fighterDisplay, fighter );
+		this.fighterDisplay.showAsCounterDefending();
 		this.display.showDefendingInstructions() ; 
 		this.fighter.defenceGained = 0;
 		this.updateCount = 0 ;
@@ -132,11 +144,15 @@ class HumanCounterDefendingState extends FightState {
 		this.fighter.defenceGained = 10 * ( this.defenceCalculator.totalDistance / this.updateCount );
 		logMessage( 'class HumanCounterDefendingState updateFighterStatus: defenceGained: '+this.fighter.defenceGained+', ticks: ' + this.updateCount, 'logUpdateFighterStatus' ); 
 	};
+	performStateEndingAction(){
+		this.display.hideFingerVerticalSwipeAnimation();
+	};
 
 	getNextPhase( enemyFighter ){
 		return fightPhase.counterDefending;
 	};
 	forcedNextPhase( enemyFighter ){
+		this.performStateEndingAction();
 		if( this.fighter.fightingStatistics.currentFightingStatistics.hp <= 0 ){
 			return fightPhase.fallingDead;
 		}else{

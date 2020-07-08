@@ -5,6 +5,7 @@ class PreFightState extends FightState {
 		super(display, fighterDisplay, fighter );
 		this.name = 'PreFightState' ;
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
+		this.fighterDisplay.showAsJumping();
 	};
 	getNextPhase( enemyFighter ){
 		//logMessage( 'State '+this.name+' get next phase: '+fightPhase.jumping, 'logGetNextPhase' ) ;
@@ -19,6 +20,7 @@ class JumpState extends FightState {
 	    this.angle = 20; 
 	    this.angleDirection = 0 ; 
 		this.angleDelta = -1 ;
+		this.fighterDisplay.showAsJumping();
 	};
 	getNextPhase( enemyFighter ){ 
 	    return this.currentPhase; 
@@ -112,6 +114,7 @@ class HomeDeadState extends FightState {
 		this.name = 'HomeDeadState';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show animation
+		this.fighterDisplayshowAsDead();
 	};
 	getNextPhase(  ){
 		logMessage( 'State '+this.name+' get next phase: '+fightPhase.dead, 'logGetNextPhase' ) ;
@@ -123,6 +126,7 @@ class AwayDeadState extends FightState {
 		super(display, fighterDisplay, fighter );
 		this.name = 'AwayDeadState';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
+		this.fighterDisplay.showAsDead();
 	};
 	getNextPhase(  ){
 		logMessage( 'State '+this.name+' get next phase: '+fightPhase.dead, 'logGetNextPhase' ) ;
@@ -136,6 +140,7 @@ class HomeWinnerState extends FightState {
 		this.name = 'HomeWinnerState';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show animation 
+		this.fighterDisplay.showAsWinner();
 	};
 	getNextPhase(  ){
 		logMessage( 'State '+this.name+' get next phase: '+fightPhase.winner, 'logGetNextPhase' ) ;
@@ -147,6 +152,7 @@ class AwayWinnerState extends FightState {
 		super(display, fighterDisplay, fighter );
 		this.name = 'AwayWinnerState';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
+		this.fighterDisplay.showAsWinner();
 	};
 	getNextPhase(  ){
 		logMessage( 'State '+this.name+' get next phase: '+fightPhase.winner, 'logGetNextPhase' ) ;

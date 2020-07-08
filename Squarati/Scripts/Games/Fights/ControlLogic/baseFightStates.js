@@ -42,6 +42,7 @@ class CoDependantFightState extends FightState {
 	constructor(display, fighterDisplay, fighter ){ super(display, fighterDisplay, fighter );};
 	// work out a phase that is not this one?
 	forcedNextPhase ( enemyFighter ) {
+		this.performStateEndingAction();
 		return undefined;
 	};
 };

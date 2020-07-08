@@ -32,26 +32,31 @@ class HealthIndicator {
 		if ( this.gaugeHeight > this.gaugeRange ){ this.gaugeHeight = this.gaugeRange; };
 		this.foreground.graphics.beginFill(this.foregroundColor).drawRect( this.x+1, this.y+this.height-1, this.width-2, -this.gaugeHeight );
 	};
-	setCurrent( current, useAnimation ){
+	setCurrent( newValue, useAnimation ){
 		if (useAnimation){
 			//  calculate how much to change health indicator by to show new value in 5 changes
-			let numberOfChanges = systemSettings.healthIndicatorPhases; // not really a game element setting
-			current = ( current>this.maximum )?this.maximum: this.current;
-			let diff = current - this.current ;
-			let change = Math.round((diff/numberOfChanges ) /100 )* 100;
+			let numberOfChanges = systemSettings.animationSettings.healthIndicatorPhases; // not really a game element setting
+
+			newValue = ( newValue>this.maximum )?this.maximum: newValue;
+			if ( newValue < 0 ) {
+				newValue = 0;
+			}
+			let diff = newValue - this.current ;
+
+			let change = Math.round((diff/numberOfChanges )*10000)/ 10000;
 			// here need to get a closure with setting 
-			this.foreground.addEventListener( 'tick', getHealthAdjustementFunction( change ) );
+			this.foreground.addEventListener( 'tick', this.getHealthAdjustmentFunction( change ).bind( this ) );
 		}else{
-			this._setCurrent( current );
+			this._setCurrent( newValue );
 		};
 	}; // setCurrent
-	getHealthAddustmentFunction ( delta ){
+	getHealthAdjustmentFunction ( delta ){
 		var change = delta;
 		var times = 0;
-		adjust = function () {
+		var adjust = function () {
 			times += 1;
-			if( times <= systemSettings.healthIndicatorPhases ) {
-				let newValue = this.current - delta;
+			if( times <= systemSettings.animationSettings.healthIndicatorPhases ) {
+				let newValue = this.current + delta;
 				this._setCurrent(  newValue );
 			} else {
 				if (!( typeof this.foreground._eventListeners == 'undefined' || this.foreground._eventListeners.length == 0 ) ){
