@@ -15,7 +15,10 @@ class BackGroundDisplay {
 		this.createBackDrop( image ) ;
 		this.createGameDisplay() ;
 	}; //constructor
-	
+	clear(){
+		this.homeFighterHealthBar.clear();
+		this.awayFighterHealthBar.clear();
+	};
 	createBackDrop( image ) { //event ){ 
 		let img = image; //event.srcElement;
 		var data = {

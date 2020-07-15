@@ -52,36 +52,6 @@ class GameHvsCOneOnOne extends GameClass {
 		};
 		this.clickTestVal += 1 ;
 		return false;
-		//this.fight.stageClick( event );
-//		if ( this.display.___ticko == undefined ) {
-//			this.display.___ticko = 0
-//		} else if  ( this.display.___ticko == -1 ){
-//			this.display.___ticko = 0
-//		}else if  ( this.display.___ticko == 0 ){
-//			this.display.___ticko = 1
-//		}else if  ( this.display.___ticko == 1 ){
-//			this.display.___ticko = -1
-//		}
-//		this.display.homeFighterDisplay.rotate( this.display.___ticko * 20 ) ;
-//		this.display.awayFighterDisplay.rotate( this.display.___ticko * -20 ) ;
-//	
-//		if ( this.display.homeFighterDisplay.y < 50 || this.display.awayFighterDisplay.y < 50 ) {
-//			this.display.homeFighterDisplay.y = 230 ;
-//			this.display.awayFighterDisplay.y = 230 ;
-//		} else {
-//			this.display.homeFighterDisplay.y = this.display.homeFighterDisplay.y - Math.floor( Math.random() * 50 );
-//			this.display.awayFighterDisplay.y = this.display.awayFighterDisplay.y - Math.floor( Math.random() * 50 );
-//		}
-//	
-//    	this.display.backGroundDisplay.homeFighterHealthBar.current = ( this.display.backGroundDisplay.playerHealthBar.current -5000 ) ;
-//		if ( this.display.backGroundDisplay.homeFighterHealthBar.current < -5000 ) this.display.backGroundDisplay.playerHealthBar.current  = 25000 ;
-//		
-//		if ( this.display.backGroundDisplay.header.fadeOption == fadeOption.none ) { this.display.backGroundDisplay.header.fadeOption = fadeOption.out }
-//		else if ( this.display.backGroundDisplay.header.fadeOption == fadeOption.out ) {  this.display.backGroundDisplay.header.fadeOption = fadeOption.in; }
-//		else if ( this.display.backGroundDisplay.header.fadeOption == fadeOption.in ) {  this.display.backGroundDisplay.header.fadeOption = fadeOption.none;} ;
-//			
-//		this.display.backGroundDisplay.playerScore.increment( );
-//		this.display.backGroundDisplay.opponentScore.decrement( );
     }; //canvasClick
 	
 }; // end class

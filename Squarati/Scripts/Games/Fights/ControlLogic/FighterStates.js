@@ -93,7 +93,8 @@ class ComputerJumpingState extends JumpState {
 
 	updateFighterStatus(){
 		let chanceOfJump = Math.random() ;
-		if ( chanceOfJump < 0.43 ) {
+		// 0.43 is hard for me
+		if ( chanceOfJump < gameElements.enemySkill ) {
 			this._doJump();
 		}
 		if ( this.fighterDisplay.y > gameElements.skyHeight ){
@@ -114,7 +115,7 @@ class HomeDeadState extends FightState {
 		this.name = 'HomeDeadState';
 		logMessage( 'Create state: ' + this.name, 'logCreateState' ) ;
 		// show animation
-		this.fighterDisplayshowAsDead();
+		this.fighterDisplay.showAsDead();
 	};
 	getNextPhase(  ){
 		logMessage( 'State '+this.name+' get next phase: '+fightPhase.dead, 'logGetNextPhase' ) ;

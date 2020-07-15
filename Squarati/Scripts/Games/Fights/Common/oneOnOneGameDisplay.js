@@ -191,6 +191,7 @@ class OneOnOneGameDisplay extends GameDisplayClass {
 	};
 	/////////////////////////////////////////////////////////////////////////
 	clear() {
+		this.backGroundDisplay.clear();
 		myStage.enableDOMEvents(false);
 		success = createjs.Ticker.removeEventListener("tick", this.handleAnimationTick30fps.bind(this) ) ;
 		if ( !success ) { 

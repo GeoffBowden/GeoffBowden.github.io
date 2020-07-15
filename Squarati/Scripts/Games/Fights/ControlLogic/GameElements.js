@@ -1,4 +1,4 @@
-// game elements 
+// game elements   
 var gameElements = {
 	skyHeight: 47,
 	startY: 230,
@@ -13,6 +13,8 @@ var gameElements = {
 	bonusRecoveryPerTick: 150,
 	basicRestingPerTick: 800,
 	bonusRestingPerTick: 150,
+	enemySkill: 0.38,
+	
 	log: logMessage, // alternate way of calling - do not use
 	logMoveToNextState: false,
 	logUpdateFighterStatus: false,

@@ -20,8 +20,10 @@ class HealthIndicator {
 
 		this.background = new createjs.Shape();
 		this.background.graphics.beginFill(this.backgroundColor).drawRect(this.x, this.y, this.width, this.height );
-		//stage.addChildAt(  this.foreground, index?index:0  ) ;
-		//stage.addChildAt(  this.background, index?index:0  ) ;
+		
+		this.target = 0;
+		this.change = 0;
+		this.foreground.addEventListener( 'tick', this.animate.bind(this) );
 	};
 	_setCurrent( current ){
 		this.foreground.graphics.beginFill(this.backgroundColor).drawRect( this.x+1, this.y+this.height-1, this.width-2, -this.gaugeHeight );
@@ -42,34 +44,28 @@ class HealthIndicator {
 				newValue = 0;
 			}
 			let diff = newValue - this.current ;
-
-			let change = Math.round((diff/numberOfChanges )*10000)/ 10000;
-			// here need to get a closure with setting 
-			this.foreground.addEventListener( 'tick', this.getHealthAdjustmentFunction( change ).bind( this ) );
+			this.change = Math.round((diff/numberOfChanges )*10000)/ 10000;
+			this.target = newValue ;
 		}else{
+			this.change = 0;
 			this._setCurrent( newValue );
 		};
 	}; // setCurrent
-	getHealthAdjustmentFunction ( delta ){
-		var change = delta;
-		var times = 0;
-		var adjust = function () {
-			times += 1;
-			if( times <= systemSettings.animationSettings.healthIndicatorPhases ) {
-				let newValue = this.current + delta;
-				this._setCurrent(  newValue );
+	animate() {
+		if ( this.change != 0 ) {
+			if ( Math.abs( this.change ) >= Math.abs( this.current - this.target ) ){
+			  this._setCurrent( this.target ) ;
+			  this.change = 0;
+			  this.target = 0;
 			} else {
-				if (!( typeof this.foreground._eventListeners == 'undefined' || this.foreground._eventListeners.length == 0 ) ){
-					for(var i = 0, len = this.foreground._eventListeners.length; i < len; i++) {
-						var e = this.foreground._eventListeners[i];
-						this.foreground.removeEventListener(e.event, e.callback);
-					};
-				};
-			};
-			this.foreground._eventListeners = [];
-		};//adust
-		return adjust;
-	}; //get health adjust...
+				let next = this.current + this.change ;
+				this._setCurrent ( next ) ;
+			};			
+		};
+	};
+	clear() {
+		this.foreground.removeEventListener( 'tick', this.animate );
+	};
 	//getter
 	get current () { return this._current; };
 	// rubbish that does not work
